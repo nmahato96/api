@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\ApiController;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 class ProductController extends ApiController
 {
@@ -15,22 +15,21 @@ class ProductController extends ApiController
      */
     public function index()
     {
-        $product = Product::all();
-        return response()->json(['data' => $product], 200);
+        $products = Product::all();
+
+        return $this->showAll($products);
     }
 
    
-
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::findOrFail($id);
-        return response()->json(['data' => $product], 200);
+        return $this->showOne($product);
     }
 
 }
